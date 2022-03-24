@@ -3,9 +3,17 @@ class MyHeader extends HTMLElement {
     super();
     this.attachShadow({mode: "open"});
     this.typeheader = this.getAttribute("type-header");
+    this.color = this.getAttribute("button-color");
   }
 
   style() {
+    let col;
+    if(this.color === null) {
+      col = "teal";
+    }else {
+      col = this.color;
+    }
+
     const css = `
     <style>
       * {
@@ -24,17 +32,15 @@ class MyHeader extends HTMLElement {
       }
       .my-header-container {
         width: 90%;
-        height: fit-content;
+        height: 50px;
         margin: 0 auto;
-        padding: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
       .my-header-container__button {
         width: 30px;
-        height: 30px;
-        padding: 3px 0;
+        height: 24px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -43,9 +49,23 @@ class MyHeader extends HTMLElement {
         display: block;
         width: 100%;
         height: 4px;
-        background-color: teal;
+        background-color: ${col};
+        will-change: transform;
+        transition-property: transform opacity;
+        transition-duration: 0.5s;
       }
-    </style>
+      .button-animation span:nth-child(1) {
+        transform: translateY(calc(12px - 50%)) rotate(45deg);
+      }
+      .button-animation span:nth-child(2) {
+        transform: rotate(45deg);
+        opacity: 0%;
+        transition-duration: 0.5s;
+      }
+      .button-animation span:nth-child(3) {
+        transform: translateY(calc(-12px + 50%)) rotate(-45deg);
+      }
+      </style>
     `;
     return css;
   }
@@ -67,9 +87,21 @@ class MyHeader extends HTMLElement {
     template.innerHTML = html;
     return template
   }
+
+  buttonAnimation() {
+    const butt = this.shadowRoot.querySelector(".my-header-container__button");
+    butt.addEventListener("click", () => {
+      butt.classList.toggle("button-animation");
+    })
+  }
   connectedCallback() {
     const content = (this.template().content).cloneNode(true)
     this.shadowRoot.appendChild(content);
+
+    //animacion del boton
+    this.buttonAnimation()
+
+    console.log(this.color)
   }
 }
 
