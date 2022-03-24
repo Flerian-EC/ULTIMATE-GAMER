@@ -2,7 +2,7 @@ class MyHeader extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({mode: "open"});
-    this.typeheader = this.getAttribute("type-header");
+    this.image = this.getAttribute("url-image");
     this.color = this.getAttribute("button-color");
   }
 
@@ -32,15 +32,22 @@ class MyHeader extends HTMLElement {
       }
       .my-header-container {
         width: 90%;
-        height: 50px;
+        height: 70px;
         margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
+      .my-header-container a {
+        width: fit-content;
+        height: fit-content;
+      }
+      .my-header-container img {
+        width: 40px;
+      }
       .my-header-container__button {
-        width: 30px;
-        height: 24px;
+        width: 40px;
+        height: 34px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -55,7 +62,7 @@ class MyHeader extends HTMLElement {
         transition-duration: 0.5s;
       }
       .button-animation span:nth-child(1) {
-        transform: translateY(calc(12px - 50%)) rotate(45deg);
+        transform: translateY(calc(17px - 50%)) rotate(45deg);
       }
       .button-animation span:nth-child(2) {
         transform: rotate(45deg);
@@ -63,7 +70,7 @@ class MyHeader extends HTMLElement {
         transition-duration: 0.5s;
       }
       .button-animation span:nth-child(3) {
-        transform: translateY(calc(-12px + 50%)) rotate(-45deg);
+        transform: translateY(calc(-17px + 50%)) rotate(-45deg);
       }
       </style>
     `;
@@ -75,7 +82,9 @@ class MyHeader extends HTMLElement {
     ${this.style()}
     <header class="my-header">
       <div class="my-header-container">
-        <img src="" alt="LOGO">
+      <a href="/">
+      <img src="${this.image}" alt="Logo de Ultimate Gamer">
+      </a>
         <div class="my-header-container__button">
           <span></span>
           <span></span>
