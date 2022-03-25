@@ -44,6 +44,7 @@ class MyHeader extends HTMLElement {
       }
       .my-header-container img {
         width: 40px;
+        filter: drop-shadow(-1px 1px 2px rgb(0 0 0 / 50%));
       }
       .my-header-container__button {
         width: 40px;
@@ -57,8 +58,9 @@ class MyHeader extends HTMLElement {
         width: 100%;
         height: 4px;
         background-color: ${col};
+        box-shadow: -1px 1px 3px 0px rgb(0 0 0 / 50%);
         will-change: transform;
-        transition-property: transform opacity;
+        transition-property: transform, opacity;
         transition-duration: 0.5s;
       }
       .button-animation span:nth-child(1) {
