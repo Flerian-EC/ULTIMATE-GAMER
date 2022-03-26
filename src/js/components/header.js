@@ -6,7 +6,7 @@ class MyHeader extends HTMLElement {
     this.color = this.getAttribute("button-color");
   }
 
-  style() {
+  styles() {
     let col;
     if(this.color === null) {
       col = "teal";
@@ -24,15 +24,15 @@ class MyHeader extends HTMLElement {
       :host {
         display: block;
         width: 100%;
-        height: fit-content;
+        height: 70px;
       }
       .my-header {
         width: 100%;
-        height: fit-content;
+        height: 100%;
       }
       .my-header-container {
         width: 90%;
-        height: 70px;
+        height: 100%;
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -43,7 +43,7 @@ class MyHeader extends HTMLElement {
         height: fit-content;
       }
       .my-header-container img {
-        width: 40px;
+        height: 60px;
         filter: drop-shadow(-1px 1px 2px rgb(0 0 0 / 50%));
       }
       .my-header-container__button {
@@ -81,7 +81,7 @@ class MyHeader extends HTMLElement {
   template() {
     const template = document.createElement("template");
     const html = `
-    ${this.style()}
+    ${this.styles()}
     <header class="my-header">
       <div class="my-header-container">
       <a href="/">
@@ -112,7 +112,7 @@ class MyHeader extends HTMLElement {
     //animacion del boton
     this.buttonAnimation()
 
-    console.log(this.color)
+    
   }
 }
 
