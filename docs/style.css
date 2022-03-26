@@ -1,12 +1,1 @@
-/*!***************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/style/style.scss ***!
-  \***************************************************************************************************************/
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 62.5%;
-}
+*{box-sizing:border-box;margin:0;padding:0}html{font-size:62.5%}.prueba{background-image:linear-gradient(to right top,#051937,#004d7a,#008793,#00bf72,#a8eb12);height:4000px;width:100%}
