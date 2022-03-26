@@ -4,8 +4,10 @@ class MyHeader extends HTMLElement {
     this.attachShadow({mode: "open"});
     this.image = this.getAttribute("url-image");
     this.color = this.getAttribute("button-color");
+    this.headerMov = this.getAttribute("header-movement");
   }
 
+  //Esta funcion contiene el css del componente
   styles() {
     let col;
     if(this.color === null) {
@@ -25,6 +27,8 @@ class MyHeader extends HTMLElement {
         display: block;
         width: 100%;
         height: 70px;
+        background-color: white;
+        will-change: transform;
       }
       .my-header {
         width: 100%;
@@ -78,6 +82,7 @@ class MyHeader extends HTMLElement {
     `;
     return css;
   }
+  //Esta funcion contiene el HTML del componente
   template() {
     const template = document.createElement("template");
     const html = `
@@ -98,22 +103,45 @@ class MyHeader extends HTMLElement {
     template.innerHTML = html;
     return template
   }
-
+  //Esta funcion activa la animacion del boton
   buttonAnimation() {
     const butt = this.shadowRoot.querySelector(".my-header-container__button");
     butt.addEventListener("click", () => {
       butt.classList.toggle("button-animation");
     })
   }
+  //Esta funcion es la que activa el seguimiento del header en pantalla
+  headerMovement() {
+    if(this.headerMov !== "false") {
+      let move;
+      window.addEventListener("scroll", () => {
+        move = window.scrollY;
+        this.style.transform = `translateY(${move}px)`;
+
+        if(move != 0) {
+          this.style.boxShadow = "rgb(0 0 0 / 50%) 0px -1px 20px 0px";
+        }
+      })
+    }
+  }
+
+  //Esta funcion se activa automaticamente al crear el componente '<my-header></my-header>' en HTML.
   connectedCallback() {
     const content = (this.template().content).cloneNode(true)
     this.shadowRoot.appendChild(content);
 
-    //animacion del boton
     this.buttonAnimation()
 
-    
+    this.headerMovement()
   }
 }
 
+/*
+  Este es el componente web en HTML:
+  <my-header></my-header>
+  Estos son los tipos de atributos que tiene el componente web:
+  url-image: Define la ruta de img que buscara el componete
+  button-color: Define el color del boton del componente
+  header-movement: Define si el componente te seguira o no en pantalla
+*/
 window.customElements.define("my-header", MyHeader);
