@@ -38,11 +38,13 @@ class MyHeader extends HTMLElement {
         display: block;
         width: 100%;
         height: 70px;
-        will-change: transform;
         position: ${positio};
-        background-color: ${tra};
         top: 0;
         left: 0;
+        will-change: transform;
+        background-color: ${tra};
+        transition-property: transform;
+        transition-duration: 1s;
       }
       .my-header {
         width: 100%;
