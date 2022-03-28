@@ -1,0 +1,27 @@
+.home-main {
+  width: 100%;
+  height: fit-content;
+}
+
+//Esta es la caratula:
+.home-main-cover {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, #bf244b, #a10750, #800052, #5c004f, #370047);
+  &-content {
+    width: 100%;
+    height: fit-content;
+    figure {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      justify-content: center;
+      img {
+        height: 300px;
+      }
+    }
+  }
+}
