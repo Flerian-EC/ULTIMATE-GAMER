@@ -6,13 +6,22 @@ class MyHeader extends HTMLElement {
     this.color = this.getAttribute("button-color");
     this.headerMov = this.getAttribute("header-movement");
     this.transparent = this.getAttribute("transparent-header");
+    this.bgMenu = this.getAttribute("bg-menu");
   }
 
   //Esta funcion contiene el css del componente
   styles() {
+    let bgMen;
     let col;
     let tra;
     let positio;
+
+    if(this.bgMenu === null) {
+      bgMen = "teal"
+    }else {
+      bgMen = this.bgMenu;
+    }
+
     if(this.color === null) {
       col = "teal";
     }else {
@@ -50,6 +59,7 @@ class MyHeader extends HTMLElement {
       .my-header {
         width: 100%;
         height: 100%;
+        position: relative;
       }
       .my-header-container {
         width: 90%;
@@ -58,6 +68,8 @@ class MyHeader extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: relative;
+        z-index: 2;
       }
       .my-header-container a {
         width: fit-content;
@@ -95,6 +107,26 @@ class MyHeader extends HTMLElement {
       .button-animation span:nth-child(3) {
         transform: translateY(calc(-17px + 50%)) rotate(-45deg);
       }
+      .hidden {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+      }
+      .header-menu {
+        width: 16px;
+        height: 16px;
+        background-color: ${bgMen};
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 50%;
+        transition-property: transform;
+        opacity: 0%;
+      }
       </style>
     `;
     return css;
@@ -105,6 +137,9 @@ class MyHeader extends HTMLElement {
     const html = `
     ${this.styles()}
     <header class="my-header">
+        <div class="hidden">
+          <div class="header-menu"></div>
+        </div>
       <div class="my-header-container">
       <a href="/">
       <img src="${this.image}" alt="Logo de Ultimate Gamer">
@@ -120,11 +155,46 @@ class MyHeader extends HTMLElement {
     template.innerHTML = html;
     return template
   }
+
+  //Esta funcion ejecuta la animacion del despliegue del menu
+  buttonMenu(value) {
+    const menu = this.shadowRoot.querySelector(".header-menu");
+    const hidden = this.shadowRoot.querySelector(".hidden");
+    const width = window.visualViewport.width;
+    const height = window.visualViewport.height;
+    const large = Math.sqrt((width ** 2) + (height ** 2));
+    const radio = Math.round(large / 8);
+    if(value === true) {
+      hidden.style.height = `${height}px`
+      menu.style.transitionDuration = "1.5s";
+      menu.style.opacity = "100%"
+      menu.style.transform = `scale(${radio})`
+    }else {
+      menu.style.transitionDuration = "0.5s";
+      menu.style.transform = `scale(${1})`;
+      setTimeout(() => {
+        hidden.style.height = `100%`
+        menu.style.opacity = "0%"
+      }, 500)
+    }
+  }
   //Esta funcion activa la animacion del boton
-  buttonAnimation() {
+  buttonExe() {
+    let control = true;
     const butt = this.shadowRoot.querySelector(".my-header-container__button");
     butt.addEventListener("click", () => {
       butt.classList.toggle("button-animation");
+      if(control === true) {
+        this.buttonMenu(control)
+        control = false;
+        this.style.transitionDuration = "0s";
+      }else {
+        this.buttonMenu(control)
+        control = true;
+        this.style.transitionDuration = "0.5s"
+      }
+
+
     })
   }
   //Esta funcion ejecuta la transparencia del header
@@ -162,7 +232,7 @@ class MyHeader extends HTMLElement {
     const content = (this.template().content).cloneNode(true)
     this.shadowRoot.appendChild(content);
 
-    this.buttonAnimation()
+    this.buttonExe()
 
     this.headerMovement()
   }
