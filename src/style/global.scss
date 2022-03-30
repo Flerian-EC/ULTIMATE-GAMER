@@ -7,6 +7,45 @@ html {
   font-size: 62.5%;
 }
 
+//fonts
+//baloo
+@font-face {
+  font-family: 'Baloo 2';
+  src: url('./assets/fonts/Baloo2-Regular.woff2') format('woff2'),
+      url('./assets/fonts/Baloo2-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Baloo 2';
+  src: url('./assets/fonts/Baloo2-Bold.woff2') format('woff2'),
+      url('./assets/fonts/Baloo2-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Baloo 2';
+  src: url('./assets/fonts/Baloo2-Medium.woff2') format('woff2'),
+      url('./assets/fonts/Baloo2-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+//varela
+@font-face {
+  font-family: 'Varela Round';
+  src: url('./assets/fonts/VarelaRound-Regular.woff2') format('woff2'),
+      url('./assets/fonts/VarelaRound-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 // paleta de colores
 $color1: #BF244B;
 $color2: #370047;
@@ -18,3 +57,6 @@ $color7: #511D61;
 $color8: #07945D;
 $color9: #07472E;
 $color10: #470421;
+// variables de fuentes
+$title: 'Baloo 2', sans-serif;
+$text: 'Varela Round', sans-serif;

@@ -141,7 +141,7 @@ class MyHeader extends HTMLElement {
   headerMovement() {
     if(this.headerMov !== "false") {
       let move;
-      window.addEventListener("scroll", () => {
+      document.addEventListener("scroll", () => {
         move = window.scrollY;
         this.style.transform = `translateY(${move}px)`;
 
