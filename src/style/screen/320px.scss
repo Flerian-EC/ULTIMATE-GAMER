@@ -45,13 +45,13 @@
 }
 
 //seccion de la descripcion (esta kratos)
-.description-section {
+.contact-section {
   height: 350px;
   display: flex;
   width: 100%;
   background: linear-gradient(to right top, #470421, #6c0528, #900f28, #b22420, #cf3f0a);
   overflow: hidden;
-  &-content__img {
+  &__img {
     width: calc(50% - 175px);
     height: 100%;
     position: relative;
@@ -69,6 +69,41 @@
       bottom: 0;
       right: -340px;
       z-index: 2;
+    }
+  }
+  &__text {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px 20px 0 0;
+    color: white;
+    text-align: end;
+    font-size: 20px;
+    font-family: $title;
+    font-weight: 500;
+    p {
+      width: 63%;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 120px;
+      height: 40px;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+
+      background-color: $color5;
+      box-shadow: -2px 2px 5px -2px rgb(0 0 0 / 50%);
+      color: white;
+      font-size: 18px;
+      font-family: $text;
+      font-weight: 500;
+    }
+    button:hover {
+      box-shadow: none;
     }
   }
 }
