@@ -7,6 +7,7 @@
 .home-main-cover {
   width: 100%;
   height: 100vh;
+  min-height: 670px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,6 +40,35 @@
       img {
         width: 195px;
       }
+    }
+  }
+}
+
+//seccion de la descripcion (esta kratos)
+.description-section {
+  height: 350px;
+  display: flex;
+  width: 100%;
+  background: linear-gradient(to right top, #470421, #6c0528, #900f28, #b22420, #cf3f0a);
+  overflow: hidden;
+  &-content__img {
+    width: calc(50% - 175px);
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to right, #511d61, #54134f, #530a3e, #4e052e, #470421);
+    img:nth-child(1) {
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      z-index: 1;
+    }
+    img:nth-child(2) {
+      height: 320px;
+      position: absolute;
+      bottom: 0;
+      right: -340px;
+      z-index: 2;
     }
   }
 }
