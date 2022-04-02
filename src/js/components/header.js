@@ -200,7 +200,7 @@ class MyHeader extends HTMLElement {
   //Esta funcion ejecuta la transparencia del header
   transparetHeader(val) {
     if(this.transparent === "true" && val === true) {
-      this.style.backgroundColor = "rgba(255,255,255,20%)"
+      this.style.backgroundColor = "rgba(255,255,255,10%)"
       this.style.backdropFilter = "blur(6px)"
     }else if(this.transparent === "true" && val === false) {
       this.style.backgroundColor = "transparent"
