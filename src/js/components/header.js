@@ -213,14 +213,18 @@ class MyHeader extends HTMLElement {
       let move;
       document.addEventListener("scroll", () => {
         move = window.scrollY;
-        this.style.transform = `translateY(${move}px)`;
+        //this.style.transform = `translateY(${move}px)`;
 
         if(move != 0) {
+          this.style.position = "fixed";
           this.style.boxShadow = "rgb(0 0 0 / 50%) 0px -1px 20px 0px";
-          this.transparetHeader(true)
+          this.transparetHeader(true);
         }else {
+          if(this.transparent != "true") {
+            this.style.position = "static";
+          }
           this.style.boxShadow = "unset";
-          this.transparetHeader(false)
+          this.transparetHeader(false);
         }
       })
     }
