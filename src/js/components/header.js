@@ -121,11 +121,23 @@ class MyHeader extends HTMLElement {
         height: 16px;
         background-color: ${bgMen};
         position: absolute;
+        z-index: 1;
         top: 0;
         right: 0;
         border-radius: 50%;
         transition-property: transform;
         opacity: 0%;
+      }
+      .menu-content {
+        width: 100%;
+        height: 0px;
+        position: absolute;
+        z-index: 2;
+        bottom: 0;
+        left: 0;
+        background-color: transparent;
+        opacity: 0%;
+        transition-property: opacity;
       }
       </style>
     `;
@@ -139,6 +151,9 @@ class MyHeader extends HTMLElement {
     <header class="my-header">
         <div class="hidden">
           <div class="header-menu"></div>
+          <div class="menu-content">
+            <slot></slot>
+          </div>
         </div>
       <div class="my-header-container">
       <a href="/">
@@ -160,8 +175,8 @@ class MyHeader extends HTMLElement {
   buttonMenu(value) {
     const menu = this.shadowRoot.querySelector(".header-menu");
     const hidden = this.shadowRoot.querySelector(".hidden");
-    const width = window.visualViewport.width;
-    const height = window.visualViewport.height;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const large = Math.sqrt((width ** 2) + (height ** 2));
     const radio = Math.round(large / 8);
     if(value === true) {
@@ -178,22 +193,39 @@ class MyHeader extends HTMLElement {
       }, 500)
     }
   }
-  //Esta funcion activa la animacion del boton
+  //Esta funcion es la que muestra el contenido del menu
+  contentMenu(value) {
+    const headerHeight = this.offsetHeight;
+    const content = this.shadowRoot.querySelector(".menu-content");
+    if(value === true) {
+      content.style.height = `calc(100% - ${headerHeight}px)`;
+      content.style.transitionDuration = "0.5s";
+      content.style.transitionDelay = "1s";
+      content.style.opacity = "100%";
+    }else {
+      content.style.height = "0px"
+      content.style.transitionDuration = "0s";
+      content.style.transitionDelay = "0s";
+      content.style.opacity = "0%"
+    }
+  }
+  //Esta funcion activa el escuchador del boton y tambien ejecuta la animacion del boton
   buttonExe() {
     let control = true;
     const butt = this.shadowRoot.querySelector(".my-header-container__button");
     butt.addEventListener("click", () => {
       butt.classList.toggle("button-animation");
       if(control === true) {
-        this.buttonMenu(control)
+        this.buttonMenu(control);
+        this.contentMenu(control)
         control = false;
         this.style.transitionDuration = "0s";
       }else {
-        this.buttonMenu(control)
+        this.buttonMenu(control);
+        this.contentMenu(control)
         control = true;
         this.style.transitionDuration = "0.5s"
       }
-
 
     })
   }
@@ -248,6 +280,7 @@ class MyHeader extends HTMLElement {
   Estos son los tipos de atributos que tiene el componente web:
 
   -url-image="string" Define la ruta de img que buscara el componete;
+  -bg-menu="colorCss" Define el color que tendra el menu desplegable
   -button-color="colorCss" Define el color del boton del componente;
   -header-movement="true / false" Define si el componente te seguira o no en pantalla;
   -transparent-header="true / false" define si el header es transparente o no;
