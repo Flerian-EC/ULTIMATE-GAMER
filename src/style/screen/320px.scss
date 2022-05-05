@@ -190,3 +190,27 @@
     }
   }
 }
+
+.home-main-videogames {
+  width: 100%;
+  height: fit-content;
+  padding: 50px 0px;
+  background-image: linear-gradient(to right top, #cf233d, #da0056, #e00072, #e00092, #d600b4);
+  &-content {
+    width: 80%;
+    height: fit-content;
+    margin: 0 auto;
+    font-family: $text;
+    color: white;
+    h2 {
+      width: 80%;
+      margin: 0 auto;
+      margin-bottom: 25px;
+      font-size: 2rem;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+  }
+}
