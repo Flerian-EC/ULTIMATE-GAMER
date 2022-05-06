@@ -2,11 +2,12 @@ class MyHeader extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({mode: "open"});
-    this.image = this.getAttribute("url-image");
-    this.color = this.getAttribute("button-color");
-    this.headerMov = this.getAttribute("header-movement");
-    this.transparent = this.getAttribute("transparent-header");
-    this.bgMenu = this.getAttribute("bg-menu");
+    this.image = this.getAttribute("flerian-url-image");
+    this.color = this.getAttribute("flerian-button-color");
+    this.headerMov = this.getAttribute("flerian-header-movement");
+    this.transparent = this.getAttribute("flerian-transparent-header");
+    this.bgMenu = this.getAttribute("flerian-menu-bg");
+    this.colorChange = this.getAttribute("flerian-color-change");
   }
 
   //Esta funcion contiene el css del componente
@@ -34,6 +35,11 @@ class MyHeader extends HTMLElement {
     }else {
       tra = "transparent";
       positio = "absolute";
+    }
+
+    if(typeof this.colorChange === "string" && this.transparent !== "true" && this.headerMov !== "false" ) {
+      tra = ((this.colorChange).split(" "))[0];
+      positio = "static";
     }
 
     const css = `
@@ -239,24 +245,38 @@ class MyHeader extends HTMLElement {
       this.style.backdropFilter = "unset"
     }
   }
+  //Esta funcion realiza el cambio de color cuando el header entra en movimiento, solo se activa con el valor de un atributo (flerian-color-change);
+  colorChangeFunction(control) {
+    if(typeof this.colorChange === "string" && this.transparent !== "true") {
+      const values = (this.colorChange).split(" ")
+      if(values.length === 2) {
+        if(control === true) {
+          this.style.backgroundColor = values[1];
+        }else {
+          this.style.backgroundColor = values[0];
+        }
+      }
+    }
+  }
   //Esta funcion es la que activa el seguimiento del header en pantalla
   headerMovement() {
     if(this.headerMov !== "false") {
       let move;
       document.addEventListener("scroll", () => {
         move = window.scrollY;
-        //this.style.transform = `translateY(${move}px)`;
 
         if(move != 0) {
           this.style.position = "fixed";
           this.style.boxShadow = "rgb(0 0 0 / 50%) 0px -1px 20px 0px";
           this.transparetHeader(true);
+          this.colorChangeFunction(true);
         }else {
           if(this.transparent != "true") {
             this.style.position = "static";
           }
           this.style.boxShadow = "unset";
           this.transparetHeader(false);
+          this.colorChangeFunction(false);
         }
       })
     }
@@ -279,10 +299,11 @@ class MyHeader extends HTMLElement {
   <my-header></my-header>
   Estos son los tipos de atributos que tiene el componente web:
 
-  -url-image="string" Define la ruta de img que buscara el componete;
-  -bg-menu="colorCss" Define el color que tendra el menu desplegable
-  -button-color="colorCss" Define el color del boton del componente;
-  -header-movement="true / false" Define si el componente te seguira o no en pantalla;
-  -transparent-header="true / false" define si el header es transparente o no;
+  --flerian-url-image="string" Define la ruta de img que buscara el componete;
+  --flerian-menu-bg="colorCss" Define el color que tendra el menu desplegable
+  --flerian-button-color="colorCss" Define el color del boton del componente;
+  --flerian-header-movement="true / false" Define si el componente te seguira o no en pantalla;
+  --flerian-transparent-header="true / false" define si el header es transparente o no;
+  --flerian-color-change="cssColor cssColor" El primer valor define el bg-color del header cuando este esta en su pocision inicial (0px en el eje Y). El segundo valor define el bg-color del header cuando este realizo movimiento (mayor a 0px en el eje Y). Este atributo no funcionara si el atributo "flerian-header-movement" esta en "false" o tambien si el atributo "flerian-transparent-header" esta en "true".
 */
 window.customElements.define("my-header", MyHeader);
