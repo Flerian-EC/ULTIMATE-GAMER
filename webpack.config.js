@@ -8,7 +8,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   watch: true,
   mode: "development",
-  entry: ["./src/js/components/header.js","./src/main.js", "./src/style/style.js"],
+  entry: ["./src/js/components/header.js", "./src/js/components/carousel.js", "./src/main.js", "./src/style/style.js"],
   output: {
     path: path.resolve(__dirname, "docs"),
     filename: "script.js",

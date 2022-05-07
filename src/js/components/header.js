@@ -1,4 +1,4 @@
-class MyHeader extends HTMLElement {
+class FlerianHeader extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({mode: "open"});
@@ -306,4 +306,4 @@ class MyHeader extends HTMLElement {
   --flerian-transparent-header="true / false" define si el header es transparente o no;
   --flerian-color-change="cssColor cssColor" El primer valor define el bg-color del header cuando este esta en su pocision inicial (0px en el eje Y). El segundo valor define el bg-color del header cuando este realizo movimiento (mayor a 0px en el eje Y). Este atributo no funcionara si el atributo "flerian-header-movement" esta en "false" o tambien si el atributo "flerian-transparent-header" esta en "true".
 */
-window.customElements.define("my-header", MyHeader);
+window.customElements.define("flerian-header", FlerianHeader);
