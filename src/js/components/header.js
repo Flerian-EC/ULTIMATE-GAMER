@@ -37,9 +37,13 @@ class FlerianHeader extends HTMLElement {
       positio = "absolute";
     }
 
-    if(typeof this.colorChange === "string" && this.transparent !== "true" && this.headerMov !== "false" ) {
+    if(typeof this.colorChange === "string" && this.transparent !== "true" && this.headerMov !== "false" && this.colorChange.split(" ").length === 2) {
       tra = ((this.colorChange).split(" "))[0];
       positio = "static";
+    }else if(typeof this.colorChange === "string" && this.transparent === "true" && this.headerMov !== "false" && this.colorChange.split(" ").length === 1) {
+      this.colorChange = this.colorChange;
+    }else {
+      this.colorChange = "rgba(255,255,255,10%)";
     }
 
     const css = `
@@ -69,6 +73,7 @@ class FlerianHeader extends HTMLElement {
       }
       .my-header-container {
         width: 90%;
+        max-width: 1920px;
         height: 100%;
         margin: 0 auto;
         display: flex;
@@ -91,6 +96,7 @@ class FlerianHeader extends HTMLElement {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        cursor: pointer;
       }
       .my-header-container__button span {
         display: block;
@@ -136,11 +142,13 @@ class FlerianHeader extends HTMLElement {
       }
       .menu-content {
         width: 100%;
+        max-width: 1920px;
         height: 0px;
         position: absolute;
         z-index: 2;
         bottom: 0;
-        left: 0;
+        left: 50%;
+        transform: translateX(-50%);
         background-color: transparent;
         opacity: 0%;
         transition-property: opacity;
@@ -184,10 +192,10 @@ class FlerianHeader extends HTMLElement {
     const width = window.innerWidth;
     const height = window.innerHeight;
     const large = Math.sqrt((width ** 2) + (height ** 2));
-    const radio = Math.round(large / 8);
+    const radio = Math.ceil(large / 8);
     if(value === true) {
       hidden.style.height = `${height}px`
-      menu.style.transitionDuration = "1.5s";
+      menu.style.transitionDuration = "1.3s";
       menu.style.opacity = "100%"
       menu.style.transform = `scale(${radio})`
     }else {
@@ -206,7 +214,7 @@ class FlerianHeader extends HTMLElement {
     if(value === true) {
       content.style.height = `calc(100% - ${headerHeight}px)`;
       content.style.transitionDuration = "0.5s";
-      content.style.transitionDelay = "1s";
+      content.style.transitionDelay = "0.9s";
       content.style.opacity = "100%";
     }else {
       content.style.height = "0px"
@@ -238,11 +246,11 @@ class FlerianHeader extends HTMLElement {
   //Esta funcion ejecuta la transparencia del header
   transparetHeader(val) {
     if(this.transparent === "true" && val === true) {
-      this.style.backgroundColor = "rgba(255,255,255,10%)"
-      this.style.backdropFilter = "blur(6px)"
+      this.style.backgroundColor = this.colorChange;
+      this.style.backdropFilter = "blur(6px)";
     }else if(this.transparent === "true" && val === false) {
-      this.style.backgroundColor = "transparent"
-      this.style.backdropFilter = "unset"
+      this.style.backgroundColor = "transparent";
+      this.style.backdropFilter = "unset";
     }
   }
   //Esta funcion realiza el cambio de color cuando el header entra en movimiento, solo se activa con el valor de un atributo (flerian-color-change);
@@ -304,6 +312,6 @@ class FlerianHeader extends HTMLElement {
   --flerian-button-color="colorCss" Define el color del boton del componente;
   --flerian-header-movement="true / false" Define si el componente te seguira o no en pantalla;
   --flerian-transparent-header="true / false" define si el header es transparente o no;
-  --flerian-color-change="cssColor cssColor" El primer valor define el bg-color del header cuando este esta en su pocision inicial (0px en el eje Y). El segundo valor define el bg-color del header cuando este realizo movimiento (mayor a 0px en el eje Y). Este atributo no funcionara si el atributo "flerian-header-movement" esta en "false" o tambien si el atributo "flerian-transparent-header" esta en "true".
+  --flerian-color-change="cssColor cssColor" El primer valor define el bg-color del header cuando este esta en su pocision inicial (0px en el eje Y). El segundo valor define el bg-color del header cuando este realizo movimiento (mayor a 0px en el eje Y). Este atributo no funcionara si el atributo "flerian-header-movement" esta en "false". Si el atributo "flerian-transparent-header" esta en "true" este atributo solo recibira un valor.
 */
 window.customElements.define("flerian-header", FlerianHeader);

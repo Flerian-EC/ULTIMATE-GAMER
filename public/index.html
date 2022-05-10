@@ -77,7 +77,24 @@
       <div class="home-main-videogames-content">
         <h2>obten tus juegos favoritos</h2>
 
-        <flerian-carousel flerian-number-cards="3" flerian-card-width="100%"></flerian-carousel>
+        <style>
+          .prueba {
+            width: 100%;
+            height: 300px;
+            background-color: teal;
+            border-radius: 20px;
+            
+          }
+        </style>
+        
+        <flerian-carousel flerian-number-cards="3" flerian-card-width="90%" flerian-maxWidth-card="400px">
+
+          <div slot="1" class="prueba"></div>
+          <div slot="2" class="prueba"></div>
+          <div slot="3" class="prueba"></div>
+
+
+        </flerian-carousel>
       </div>
     </section>
   </main>
