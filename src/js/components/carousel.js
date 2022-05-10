@@ -88,7 +88,7 @@ class FlerianCarousel extends HTMLElement {
     max-width: ${maxWidth};
     height: fit-content;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     overflow: hidden;
   }
   .content-container__cards {
@@ -250,3 +250,10 @@ ${this.style()}
 }
 
 window.customElements.define("flerian-carousel", FlerianCarousel);
+
+/* 
+--flerian-number-cards="number" Este atributo define la cantidad de tarjetas que contendra el carousel del componente.
+--flerian-card-width="px / % / etc" Este atributo define el ancho de la tajeta, si usa una unidad relativa como '%' este se basara en el ancho del elemento 'flerian-carousel'.
+--flerian-maxWidth-card="px / % / etc" Este atributo define un ancho maximo que tendra la tarjeta. Solo tiene sentido usar este atributo cuando se definio el ancho de la tarjeta con una unidad relativa (%) en el atributo 'flerian-card-width'.
+--flerian-colored-buttons="cssColor cssColor / cssColor" Esta funcion define el color de los botones que manejan el carousel, el primer valor define el color del elemento activo o el color de la fuente, el segundo valor define el color del bg-color del boton. tambien puede pasarle un solo atributo que definiria el color del elemento activo o el color de la fuente y por defecto el bg-color del boton es medio transparente.
+*/

@@ -211,6 +211,59 @@
       font-weight: bold;
       text-transform: uppercase;
     }
-    
+    flerian-carousel {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .flerian-carousel-card {
+      border-radius: 20px;
+      padding: 20px 0;
+      padding-bottom: 30px;
+      background-color: rgba($color: #A40341, $alpha: 0.3);
+      width: 100%;
+      height: fit-content;
+      .title {
+        font-family: $title;
+        color: white;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      img {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        border-radius: 10px;
+      }
+      .txt {
+        font-family: $text;
+        font-size: 1.7rem;
+        padding-left: 20px;
+      }
+      .plat {
+        text-decoration: underline;
+        margin-bottom: 20px;
+      }
+      a {
+        width: 100px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: #e633a1;
+        box-shadow: -2px 2px 5px -2px rgb(0 0 0 / 50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: white;
+        font-family: $text;
+        font-weight: 500;
+        font-size: 17px;
+        text-decoration: none;
+      }
+      a:hover {
+        box-shadow: none;
+      }
+    }
   }
 }
