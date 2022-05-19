@@ -8,8 +8,15 @@
 </head>
 <body>
   <!-- Este el HEADER -->
-  <flerian-header flerian-menu-bg="#511D61" flerian-transparent-header="true" flerian-button-color="#D61500" flerian-url-image="./assets/img/logo.svg" flerian-header-movement="true">
-    <div><p>hola mundo</p></div>
+  <flerian-header flerian-mode-development="tre" flerian-menu-bg="#511D61" flerian-transparent-header="true" flerian-button-color="#D61500" flerian-url-image="./assets/img/logo.svg" flerian-header-movement="true">
+    
+    <!-- contenido del header -->
+    <div class="flerian-header-content">
+      <a class="flerian-button-menu" href="#console">consolas</a>
+      <a class="flerian-button-menu" href="#videogames">videojuegos</a>
+      <a class="flerian-button-menu" href="#social-media">redes sociales</a>
+    </div>
+
   </flerian-header>
 
   <!-- Este es el contenido principal -->
@@ -44,7 +51,7 @@
     </section>
 
     <!-- Esta es la seccion de consolas -->
-    <section class="home-console">
+    <section class="home-console" id="console">
       <div class="home-console-content">
         <h2>obten tu consola favorita</h2>
         <div class="home-console-content__card">
@@ -73,7 +80,7 @@
     </section>
 
     <!-- Esta es la seccion de videojuegos -->
-    <section class="home-main-videogames">
+    <section class="home-main-videogames" id="videogames">
       <div class="home-main-videogames-content">
         <h2>obten tus juegos favoritos</h2>
         
@@ -83,28 +90,28 @@
             <img src="./assets/img/god-of-war-game.jpg" alt="">
             <p class="txt">plataformas:</p>
             <p class="txt plat">playstation, pc</p>
-            <a href="#">ver más</a>
+            <a href="">ver más</a>
           </div>
           <div class="flerian-carousel-card" slot="2">
             <p class="title">horizon</p>
             <img src="./assets/img/horizon-game.jpg" alt="">
             <p class="txt">plataformas:</p>
             <p class="txt plat">playstation, pc</p>
-            <a href="#">ver más</a>
+            <a href="">ver más</a>
           </div>
           <div class="flerian-carousel-card" slot="3">
             <p class="title">assassins'creed valhalla</p>
             <img src="./assets/img/valhalla-game.jpg" alt="">
             <p class="txt">plataformas:</p>
             <p class="txt plat">playstation, pc, xbox</p>
-            <a href="#">ver más</a>
+            <a href="">ver más</a>
           </div>
         </flerian-carousel>
       </div>
     </section>
 
     <!-- seccion de redes sociales -->
-    <section class="home-social-media">
+    <section class="home-social-media" id="social-media">
       <h2>sigue nuestras redes sociales</h2>
       <div class="home-social-media-content">
         <div class="social-card"><img src="./assets/img/facebook.svg" alt="facebook"></div>

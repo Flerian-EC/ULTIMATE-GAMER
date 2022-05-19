@@ -2,12 +2,15 @@ class FlerianHeader extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({mode: "open"});
+    this.buttonControl = true;
+
     this.image = this.getAttribute("flerian-url-image");
     this.color = this.getAttribute("flerian-button-color");
     this.headerMov = this.getAttribute("flerian-header-movement");
     this.transparent = this.getAttribute("flerian-transparent-header");
     this.bgMenu = this.getAttribute("flerian-menu-bg");
     this.colorChange = this.getAttribute("flerian-color-change");
+    this.development = this.getAttribute("flerian-mode-development");
   }
 
   //Esta funcion contiene el css del componente
@@ -152,6 +155,7 @@ class FlerianHeader extends HTMLElement {
         background-color: transparent;
         opacity: 0%;
         transition-property: opacity;
+        overflow: hidden;
       }
       </style>
     `;
@@ -195,7 +199,7 @@ class FlerianHeader extends HTMLElement {
     const radio = Math.ceil(large / 8);
     if(value === true) {
       hidden.style.height = `${height}px`
-      menu.style.transitionDuration = "1.3s";
+      menu.style.transitionDuration = "1s";
       menu.style.opacity = "100%"
       menu.style.transform = `scale(${radio})`
     }else {
@@ -213,11 +217,13 @@ class FlerianHeader extends HTMLElement {
     const content = this.shadowRoot.querySelector(".menu-content");
     if(value === true) {
       content.style.height = `calc(100% - ${headerHeight}px)`;
+      content.style.paddingTop = "20px";
       content.style.transitionDuration = "0.5s";
-      content.style.transitionDelay = "0.9s";
+      content.style.transitionDelay = "0.5s";
       content.style.opacity = "100%";
     }else {
       content.style.height = "0px"
+      content.style.paddingTop = "0px";
       content.style.transitionDuration = "0s";
       content.style.transitionDelay = "0s";
       content.style.opacity = "0%"
@@ -225,19 +231,18 @@ class FlerianHeader extends HTMLElement {
   }
   //Esta funcion activa el escuchador del boton y tambien ejecuta la animacion del boton
   buttonExe() {
-    let control = true;
     const butt = this.shadowRoot.querySelector(".my-header-container__button");
     butt.addEventListener("click", () => {
       butt.classList.toggle("button-animation");
-      if(control === true) {
-        this.buttonMenu(control);
-        this.contentMenu(control)
-        control = false;
+      if(this.buttonControl === true) {
+        this.buttonMenu(this.buttonControl);
+        this.contentMenu(this.buttonControl);
+        this.buttonControl = false;
         this.style.transitionDuration = "0s";
       }else {
-        this.buttonMenu(control);
-        this.contentMenu(control)
-        control = true;
+        this.buttonMenu(this.buttonControl);
+        this.contentMenu(this.buttonControl)
+        this.buttonControl = true;
         this.style.transitionDuration = "0.5s"
       }
 
@@ -290,15 +295,73 @@ class FlerianHeader extends HTMLElement {
     }
   }
 
+  devButtonMenu() {
+    const menu = this.shadowRoot.querySelector(".header-menu");
+    const hidden = this.shadowRoot.querySelector(".hidden");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const large = Math.sqrt((width ** 2) + (height ** 2));
+    const radio = Math.ceil(large / 8);
 
+    hidden.style.height = `${height}px`
+    menu.style.transitionDuration = "0s";
+    menu.style.opacity = "100%"
+    menu.style.transform = `scale(${radio})`
+
+    ///////////////////////
+
+
+    const headerHeight = this.offsetHeight;
+    const content = this.shadowRoot.querySelector(".menu-content");
+
+      content.style.height = `calc(100% - ${headerHeight}px)`;
+      content.style.paddingTop = "20px";
+      content.style.transitionDuration = "0s";
+      content.style.transitionDelay = "0s";
+      content.style.opacity = "100%";
+
+  }
+  //Esta funcion activa el 'MutationObserver' para controlar el cambio en los atributos del componente.
+  mutationFunction() {
+    const butt = this.shadowRoot.querySelector(".my-header-container__button");
+
+    let callback = (a, b) => {
+      const control = this.getAttribute("flerian-attribute-observer");
+      if(this.buttonControl === false && control==="false") {
+        butt.classList.toggle("button-animation");
+        this.buttonMenu(this.buttonControl);
+        this.contentMenu(this.buttonControl);
+        this.buttonControl = true;
+        this.style.transitionDuration = "0.5s";
+        this.setAttribute("flerian-attribute-observer", "true");
+      }else if(control === "false") {
+        this.setAttribute("flerian-attribute-observer", "true");
+      }
+    };
+    callback = callback.bind(this);
+
+    const node = document.querySelector("flerian-header");
+
+    const obser = new MutationObserver(callback);
+    obser.observe(node, {attributes: true});
+  }
   //Esta funcion se activa automaticamente al crear el componente '<my-header></my-header>' en HTML.
   connectedCallback() {
+
     const content = (this.template().content).cloneNode(true)
     this.shadowRoot.appendChild(content);
+    this.setAttribute("flerian-attribute-observer", "true");
 
     this.buttonExe()
 
     this.headerMovement()
+    this.mutationFunction()
+
+    if(this.development === "true") {
+      this.devButtonMenu();
+      this.contentMenu(true);
+      console.log(this.development)
+    }
   }
 }
 
@@ -313,5 +376,10 @@ class FlerianHeader extends HTMLElement {
   --flerian-header-movement="true / false" Define si el componente te seguira o no en pantalla;
   --flerian-transparent-header="true / false" define si el header es transparente o no;
   --flerian-color-change="cssColor cssColor" El primer valor define el bg-color del header cuando este esta en su pocision inicial (0px en el eje Y). El segundo valor define el bg-color del header cuando este realizo movimiento (mayor a 0px en el eje Y). Este atributo no funcionara si el atributo "flerian-header-movement" esta en "false". Si el atributo "flerian-transparent-header" esta en "true" este atributo solo recibira un valor.
-*/
+  --flerian-mode-development="true / false"  Este atributo es para el desarrollo, cuando el valor es 'true' el header por defecto estara desplegado.
+  
+  Este es el atributo que el componente escucha:
+  --flerian-attribute-observer="true" este atributo es escuchado por el componente. Este atributo tiene la funcion de cerrar el menu del header, para eso el header debe estar abierto, con el header abierto se debe cambiar el valor del atributo a 'false' (el cambio se hace con javaScript). Esto provocara que el menu del header se cierre.
+  
+  */
 window.customElements.define("flerian-header", FlerianHeader);

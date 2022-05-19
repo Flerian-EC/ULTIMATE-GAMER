@@ -113,6 +113,7 @@ class FlerianCarousel extends HTMLElement {
     grid-template-columns: repeat(${this.componentLi(this.attrNumberCards).grid},1fr);
     grid-template-rows: 1fr;
     justify-items: center;
+    align-items: center;
     column-gap: 15px;
   }
   .point {
@@ -126,6 +127,7 @@ class FlerianCarousel extends HTMLElement {
   }
   .active {
     background-color: ${activeColor};
+    transform: scale(1.1);
   }
 
   .arrow {
