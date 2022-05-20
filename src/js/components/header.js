@@ -343,7 +343,7 @@ class FlerianHeader extends HTMLElement {
     const node = document.querySelector("flerian-header");
 
     const obser = new MutationObserver(callback);
-    obser.observe(node, {attributes: true});
+    obser.observe(node, {attributeFilter: ["flerian-attribute-observer"]});
   }
   //Esta funcion se activa automaticamente al crear el componente '<my-header></my-header>' en HTML.
   connectedCallback() {
