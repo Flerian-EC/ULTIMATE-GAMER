@@ -1,2 +1,6 @@
 @import "./global.scss";
 @import "./screen/320px.scss";
+
+@media (min-width: 768px) {
+  @import "./screen/768px.scss";
+}
